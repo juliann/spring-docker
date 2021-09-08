@@ -1,8 +1,6 @@
 package guru.springframework.domain;
 
-/**
- * Created by jt on 1/26/16.
- */
+
 public class Author {
     private Integer id;
     private String firstName;

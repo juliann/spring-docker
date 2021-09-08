@@ -5,9 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-/**
- * Created by jt on 1/20/16.
- */
+
 @Controller
 public class IndexController {
 
@@ -19,7 +17,7 @@ public class IndexController {
     }
 
     @RequestMapping({"/", "index"})
-    public String getIndex(Model model){
+    public String getIndex(Model model) {
 
         model.addAttribute("products", productService.listProducts());
 

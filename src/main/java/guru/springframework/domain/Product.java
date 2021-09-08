@@ -4,9 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by jt on 1/26/16.
- */
+
 public class Product {
 
     private Integer id;
