@@ -5,7 +5,7 @@
 
 	<groupId>com.nadarzy</groupId>
 	<artifactId>spring-boot-docker</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
+	<version>0.0.6-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>spring-boot-docker</name>
@@ -68,8 +68,19 @@
 
 			<configuration>
 	<buildArgs><RELEASE_VERSION>${project.version}</RELEASE_VERSION></buildArgs>
-<!--				<dockerHost>http://127.0.0.1:2375</dockerHost>-->
-				<dockerHost>unix:///var/run/docker.sock</dockerHost>
+
+<!--				these two did not work on windows vm-->
+<!--				<dockerHost>https://127.0.0.1:2375</dockerHost>-->
+<!--				<dockerHost>tcp://0.0.0.0:2375</dockerHost>-->
+
+<!--				this one works on windows vm with Expose daemon on tcp://localhost:2375 without TLS-->
+				<dockerHost>tcp://localhost:2375</dockerHost>
+
+
+<!--
+
+				this one works on mac/linux
+				<dockerHost>unix:///var/run/docker.sock</dockerHost>-->
 
 				<verbose>true</verbose>
 				<images>
