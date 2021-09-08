@@ -5,7 +5,7 @@
 
 	<groupId>com.nadarzy</groupId>
 	<artifactId>spring-boot-docker</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>spring-boot-docker</name>
@@ -67,7 +67,7 @@
 			<version>0.37.0</version>
 
 			<configuration>
-
+	<buildArgs><RELEASE_VERSION>${project.version}</RELEASE_VERSION></buildArgs>
 <!--				<dockerHost>http://127.0.0.1:2375</dockerHost>-->
 				<dockerHost>unix:///var/run/docker.sock</dockerHost>
 
