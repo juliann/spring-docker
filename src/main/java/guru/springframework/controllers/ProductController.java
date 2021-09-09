@@ -1,20 +1,27 @@
 package guru.springframework.controllers;
 
+import guru.springframework.model.events.PageViewEvent;
+import guru.springframework.pageview.PageViewService;
 import guru.springframework.services.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Date;
+import java.util.UUID;
+
 
 @Controller
 public class ProductController {
 
     private final ProductService productService;
+    private final PageViewService pageViewService;
 
 
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, PageViewService pageViewService) {
         this.productService = productService;
+        this.pageViewService = pageViewService;
     }
 
     @RequestMapping("/product/{id}")
@@ -22,6 +29,15 @@ public class ProductController {
 
         model.addAttribute("product", productService.getProduct(id));
 
+        //Send Page view event
+        PageViewEvent pageViewEvent = new PageViewEvent();
+        pageViewEvent.setPageUrl("springframework.guru/product/" + id);
+        pageViewEvent.setPageViewDate(new Date());
+        pageViewEvent.setCorrelationId(UUID.randomUUID().toString());
+
+        pageViewService.sendPageViewEvent(pageViewEvent);
+
         return "product";
+
     }
 }

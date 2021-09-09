@@ -1,109 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.nadarzy</groupId>
-	<artifactId>spring-boot-docker</artifactId>
-	<version>0.0.6-SNAPSHOT</version>
-	<packaging>jar</packaging>
+    <groupId>com.nadarzy</groupId>
+    <artifactId>spring-boot-docker</artifactId>
+    <version>0.0.6-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
-	<name>spring-boot-docker</name>
-	<description>Spring Framework Guru Docker Course</description>
+    <name>spring-boot-docker</name>
+    <description>Spring Framework Guru Docker Course</description>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.4</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.5.4</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>11</java.version>
-		<!--set this to your docker acct name-->
-		<docker.image.prefix>juliann53</docker.image.prefix>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>11</java.version>
+        <!--set this to your docker acct name-->
+        <docker.image.prefix>juliann53</docker.image.prefix>
 
-		<!--Set to name of project-->
-		<docker.image.name>springbootdockertest</docker.image.name>
-	</properties>
+        <!--Set to name of project-->
+        <docker.image.name>springbootdockertest</docker.image.name>
+    </properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>2.3.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.25.0-GA</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>guru.springframework</groupId>
+            <artifactId>page-view-client</artifactId>
+            <version>0.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.25</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
 
 
+        <!--testing deps-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
 
-		<!--testing deps-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-	
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.37.0</version>
 
-		<plugin>
-			<groupId>io.fabric8</groupId>
-			<artifactId>docker-maven-plugin</artifactId>
-			<version>0.37.0</version>
+                <configuration>
+                    <buildArgs>
+                        <RELEASE_VERSION>${project.version}</RELEASE_VERSION>
+                    </buildArgs>
 
-			<configuration>
-	<buildArgs><RELEASE_VERSION>${project.version}</RELEASE_VERSION></buildArgs>
+                    <!--				these two did not work on windows vm-->
+                    <!--				<dockerHost>https://127.0.0.1:2375</dockerHost>-->
+                    <!--				<dockerHost>tcp://0.0.0.0:2375</dockerHost>-->
 
-<!--				these two did not work on windows vm-->
-<!--				<dockerHost>https://127.0.0.1:2375</dockerHost>-->
-<!--				<dockerHost>tcp://0.0.0.0:2375</dockerHost>-->
+                    <!--				this one works on windows vm with Expose daemon on tcp://localhost:2375 without TLS-->
+                    <dockerHost>tcp://localhost:2375</dockerHost>
 
-<!--				this one works on windows vm with Expose daemon on tcp://localhost:2375 without TLS-->
-				<dockerHost>tcp://localhost:2375</dockerHost>
+                    <!--
+                                    this one works on mac/linux
+                                    <dockerHost>unix:///var/run/docker.sock</dockerHost>-->
 
+                    <verbose>true</verbose>
+                    <images>
+                        <image>
+                            <name>${docker.image.prefix}/${docker.image.name}</name>
+                            <build>
+                                <dockerFileDir>${project.basedir}/src/main/docker/</dockerFileDir>
 
-<!--
+                                <!--copies artficact to docker build dir in target-->
+                                <assembly>
+                                    <descriptorRef>artifact</descriptorRef>
+                                </assembly>
+                                <tags>
+                                    <tag>latest</tag>
+                                    <tag>${project.version}</tag>
+                                </tags>
+                            </build>
+                            <run>
+                                <ports>8080:8080</ports>
+<!--                                <env>-->
+<!--                                    <SPRING_RABBITMQ_HOST>rabbitmq</SPRING_RABBITMQ_HOST>-->
+<!--                                </env>-->
+<!--                                <links>-->
+<!--                                    <link>rabbitmq:rabbitmq</link>-->
+<!--                                </links>-->
+                            </run>
+                        </image>
+                    </images>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
-				this one works on mac/linux
-				<dockerHost>unix:///var/run/docker.sock</dockerHost>-->
-
-				<verbose>true</verbose>
-				<images>
-					<image>
-						<name>${docker.image.prefix}/${docker.image.name}</name>
-						<build>
-							<dockerFileDir>${project.basedir}/src/main/docker/</dockerFileDir>
-
-							<!--copies artficact to docker build dir in target-->
-							<assembly>
-								<descriptorRef>artifact</descriptorRef>
-							</assembly>
-							<tags>
-								<tag>latest</tag>
-								<tag>${project.version}</tag>
-							</tags>
-						</build>
-					</image>
-				</images>
-			</configuration>
-		</plugin>
-		</plugins>
-	</build>
-	
 
 </project>
