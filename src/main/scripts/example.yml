@@ -1,0 +1,21 @@
+# comment
+somename: value #this is also a comment
+
+anothername: '#value'  #<- string value, not comment
+
+spring:
+  datasource:
+    initial-size: 1
+    max-active: 10
+    min-idle: 1
+    max-idle: 5
+
+someList:
+  - value1: one
+  - value2: two
+
+maplist:
+  - keyvalue: 1
+    value: 'value1'
+  - keyvalue: 2
+    value: 'value2'
