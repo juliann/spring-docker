@@ -31,7 +31,7 @@ services:
       SPRING_DATASOURCE_URL: 'jdbc:mysql://mysqldb:3306/pageviewservice?useSSL=false'
       SPRING_PROFILES_ACTIVE: 'mysql'
       SPRING_RABBITMQ_HOST: rabbitmq
-
+      SPRING_DATASOURCE_USERNAME: 'root'
 
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
@@ -40,7 +40,7 @@ services:
       retries: 3
 
   springbootdocker:
-    image: juliann53/springbootdockertest
+    image: springframeworkguru/springbootdocker
     ports:
       - "8080:8080"
     restart: always
@@ -50,7 +50,7 @@ services:
     environment:
       SPRING_RABBITMQ_HOST: rabbitmq
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
       interval: 30s
       timeout: 10s
       retries: 3

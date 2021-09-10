@@ -5,7 +5,7 @@
 
     <groupId>com.nadarzy</groupId>
     <artifactId>spring-boot-docker</artifactId>
-    <version>0.0.7-SNAPSHOT</version>
+    <version>0.0.8-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>spring-boot-docker</name>
@@ -83,6 +83,10 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -107,11 +111,14 @@
                     <!--				<dockerHost>tcp://0.0.0.0:2375</dockerHost>-->
 
                     <!--				this one works on windows vm with Expose daemon on tcp://localhost:2375 without TLS-->
-<!--                    <dockerHost>tcp://localhost:2375</dockerHost>-->
+                    <dockerHost>tcp://localhost:2375</dockerHost>
+<!--                    <dockerHost>tcp://172.24.80.1:2375</dockerHost>-->
+<!--                    <dockerHost>npipe:////./pipe/docker_engine</dockerHost>-->
+
 
 
         <!-- this one works on mac/linux-->
-                                   <dockerHost>unix:///var/run/docker.sock</dockerHost>
+<!--                                   <dockerHost>unix:///var/run/docker.sock</dockerHost>-->
 
                     <verbose>true</verbose>
                     <images>
