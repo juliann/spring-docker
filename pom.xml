@@ -107,11 +107,11 @@
                     <!--				<dockerHost>tcp://0.0.0.0:2375</dockerHost>-->
 
                     <!--				this one works on windows vm with Expose daemon on tcp://localhost:2375 without TLS-->
-                    <dockerHost>tcp://localhost:2375</dockerHost>
+<!--                    <dockerHost>tcp://localhost:2375</dockerHost>-->
 
-                    <!--
-                                    this one works on mac/linux
-                                    <dockerHost>unix:///var/run/docker.sock</dockerHost>-->
+
+        <!-- this one works on mac/linux-->
+                                   <dockerHost>unix:///var/run/docker.sock</dockerHost>
 
                     <verbose>true</verbose>
                     <images>
